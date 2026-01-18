@@ -1,0 +1,20 @@
+@Home =http://localhost:5000
+@PORT={{Home}}/api/v1
+@Json=application/json
+@multiPart=multipart/form-data
+@token=
+
+
+### HOME
+GET {{Home}}/auth/me
+# GET {{PORT_2}}/heath
+Authorization: {{token}}
+
+
+###
+POST /api/yoruba-calendar/profiles
+{
+  "userId": "abc123",
+  "type": "INDIVIDUAL",
+  "role": "CREATOR"
+}

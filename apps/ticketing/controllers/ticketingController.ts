@@ -1,0 +1,1 @@
+export const handler=(req,res)=>res.json('ticketing');

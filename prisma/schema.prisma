@@ -1,0 +1,157 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ENUMS
+
+enum App {
+  YORUBA_CALENDAR
+  TAX_FLOW
+  CLEANING_SERVICE
+  TICKETING
+}
+
+enum RoleName {
+  USER
+  CREATOR
+  MODERATOR
+  ADMIN
+  SUPERADMIN
+  TAX_MANAGER
+  CALENDAR_MANAGER
+  TICKET_MANAGER
+  CLEANING_MANAGER
+}
+
+enum UserType {
+  INDIVIDUAL
+  COMPANY
+  SME
+}
+
+// USERS + ROLES
+
+model User {
+  id               String    @id @default(cuid())
+  name             String?
+  email            String    @unique
+  emailVerified    DateTime?
+  password         String? // optional, Supabase handles auth
+  image            String?
+  twoFactorEnabled Boolean   @default(false)
+
+  roles           UserRole[]
+  userAppProfiles UserAppProfile[]
+  festivals       Festival[]
+  orisas          Orisa[]
+  tickets         Ticket[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("user")
+}
+
+model Role {
+  id    String     @id @default(cuid())
+  name  RoleName   @unique
+  users UserRole[]
+}
+
+model UserRole {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  role   Role   @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  roleId String
+
+  app App
+
+  @@unique([userId, roleId, app])
+  @@map("user_roles")
+}
+
+model UserAppProfile {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  app  App
+  type UserType
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, app])
+}
+
+// ORISA
+
+model Orisa {
+  id        Int        @id @default(autoincrement())
+  name      String     @unique
+  userId    String?
+  user      User?      @relation(fields: [userId], references: [id])
+  festivals Festival[]
+}
+
+// FESTIVAL
+
+model Festival {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+
+  orisaId Int
+  orisa   Orisa @relation(fields: [orisaId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  country   String
+  eventType String // "physical" or "virtual"
+  location  String?
+  eventLink String?
+  timezone  String
+  startDate DateTime
+  startTime String?
+  endDate   DateTime
+  endTime   String?
+
+  ticketType String
+  tickets    Ticket[]
+
+  image  String?
+  banner String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// TICKET
+
+model Ticket {
+  id         Int      @id @default(autoincrement())
+  festival   Festival @relation(fields: [festivalId], references: [id])
+  festivalId Int
+
+  creator   User   @relation(fields: [creatorId], references: [id])
+  creatorId String
+
+  name        String
+  type        String // "single" | "group"
+  isFree      Boolean
+  price       Float?
+  quantity    Int
+  maxPerGroup Int?
+  sold        Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
