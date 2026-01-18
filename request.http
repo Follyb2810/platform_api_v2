@@ -9,6 +9,10 @@
 GET {{Home}}/auth/me
 # GET {{PORT_2}}/heath
 Authorization: {{token}}
+### Test
+GET {{Home}}/test
+# GET {{PORT_2}}/heath
+Authorization: {{token}}
 
 
 ###

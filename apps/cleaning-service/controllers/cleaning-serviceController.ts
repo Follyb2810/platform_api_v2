@@ -1,1 +1,0 @@
-export const handler=(req,res)=>res.json('cleaning-service');
