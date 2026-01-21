@@ -1,5 +1,5 @@
-import { IFestivalRepository } from "../../apps/yoruba-calendar/interfaces/IFestivalRepository";
-import { Festival } from "../entities/Festival";
+import { IFestivalRepository } from "../../api/yoruba-calendar/interfaces/IFestivalRepository";
+import { Festival } from "../../core/entities/Festival";
 
 export interface CreateFestivalDTO {
   title: string;

@@ -1,11 +1,5 @@
-import {
-  PrismaClient,
-  App,
-  RoleName,
-  UserType,
-} from "../../prisma/generated/prisma";
-
-const prisma = new PrismaClient();
+import { App, RoleName, UserType } from "../../prisma/generated/prisma";
+import { prisma } from "../infrastructure/db/prismaClient";
 
 async function main() {
   console.log("Seeding database...");
@@ -152,9 +146,6 @@ async function main() {
     create: { name: "Oshun", userId: user?.id },
   });
 
-  // -------------------------
-  // Create sample Festival
-  // -------------------------
   if (admin && orisa1) {
     await prisma.festival.create({
       data: {
@@ -172,7 +163,7 @@ async function main() {
     });
   }
 
-  console.log("✅ Seeding complete!");
+  console.log("Seeding complete!");
 }
 
 main()

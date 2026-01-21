@@ -1,5 +1,5 @@
+import { Festival } from "../../core/entities/Festival";
 import { PrismaFestivalRepository } from "../../infrastructure/repositories/PrismaFestivalRepository";
-import { Festival } from "../entities/Festival";
 
 export class CreateFestival {
   constructor(private festivalRepo: PrismaFestivalRepository) {}

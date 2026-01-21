@@ -1,8 +1,10 @@
 import { Router } from "express";
 import { PrismaFestivalRepository } from "../../infrastructure/repositories/PrismaFestivalRepository";
-import { CreateFestivalUsecase } from "./usecases/CreateFestivalUsecase";
+// import { CreateFestivalUsecase } from "./usecases/CreateFestivalUsecase";
 import { FestivalController } from "./controllers/festivalController";
-import { authMiddleware } from "../../auth/middleware/authMiddleware";
+import { CreateFestivalUsecase } from "../../application/usecases/CreateFestivalUsecase";
+import authMiddleware from "../../middleware/auth.middleware";
+// import { authMiddleware } from "../../auth/middleware/authMiddleware";
 
 const router = Router();
 

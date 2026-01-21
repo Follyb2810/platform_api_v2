@@ -3,6 +3,7 @@ dotenv.config();
 import express, { Request, Response } from "express";
 import { userRoutes } from "./auth/routes";
 import morgan from "morgan";
+import { errorMiddleware } from "./middleware/error.middleware";
 
 export function createApp() {
   const app = express();
@@ -14,7 +15,11 @@ export function createApp() {
   app.get("/health", (req: Request, res: Response) => {
     res.json({ status: "ok" });
   });
+  app.post("/health_v2", (req: Request, res: Response) => {
+    res.json({ status: req.body });
+  });
   // app.use("/auth", authRoutes);
-  app.use("/api/", userRoutes);
+  app.use("/api", userRoutes);
+  app.use(errorMiddleware);
   return app;
 }

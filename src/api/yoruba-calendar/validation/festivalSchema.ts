@@ -1,4 +1,3 @@
-// apps/yoruba-calendar/usecases/validation/festivalSchema.ts
 import { z } from "zod";
 
 export const festivalSchema = z.object({

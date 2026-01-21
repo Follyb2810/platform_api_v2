@@ -6,19 +6,63 @@
 
 
 ### HOME
-GET {{Home}}/auth/me
+GET {{Home}}/health
 # GET {{PORT_2}}/heath
 Authorization: {{token}}
+
+### HOME
+POST  {{Home}}/health_v2
+# GET {{PORT_2}}/heath
+Authorization: {{token}}
+Content-Type: {{Json}}
+
+{
+    "userId": "abc123",
+  "type": "INDIVIDUAL",
+  "role": "CREATOR"
+}
+
+### HOME
+GET {{Home}}/api/me
+# GET {{PORT_2}}/heath
+Authorization: {{token}}
+
+
 ### Test
-GET {{Home}}/test
+GET {{Home}}/health
 # GET {{PORT_2}}/heath
 Authorization: {{token}}
 
 
 ###
 POST /api/yoruba-calendar/profiles
+Content-Type: {{Json}}
+
 {
   "userId": "abc123",
   "type": "INDIVIDUAL",
   "role": "CREATOR"
 }
+
+###
+@Email = alice@example.com
+@session_id = {{}}
+
+
+###
+POST {{Home}}/api/register
+Content-Type: {{Json}}
+
+{
+  "name": "Alice",
+  "email": {{Email}},
+  "password": "hashedPassword",
+  "app": "TAX_FLOW",
+  "type": "COMPANY"
+}
+
+
+### Get User by email
+GET {{Home}}/api/user/{{Email}}
+# GET {{PORT_2}}/heath
+Authorization: {{token}}

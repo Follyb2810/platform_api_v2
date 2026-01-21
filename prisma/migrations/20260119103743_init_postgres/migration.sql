@@ -108,6 +108,9 @@ CREATE TABLE "Ticket" (
 CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Role_name_key" ON "Role"("name");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "user_roles_userId_roleId_app_key" ON "user_roles"("userId", "roleId", "app");
 
 -- CreateIndex

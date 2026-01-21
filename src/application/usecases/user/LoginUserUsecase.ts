@@ -1,4 +1,4 @@
-import { IUserRepository } from "../../auth/interface/IUserRepository";
+import { IUserRepository } from "../../../auth/interface/IUserRepository";
 
 export interface LoginUserDTO {
   email: string;

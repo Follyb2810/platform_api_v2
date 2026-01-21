@@ -1,4 +1,4 @@
-import { IFestivalRepository } from "../../apps/yoruba-calendar/interfaces/IFestivalRepository";
+import { IFestivalRepository } from "../../api/yoruba-calendar/interfaces/IFestivalRepository";
 import { Festival } from "../../core/entities/Festival";
 import { prisma } from "../db/prismaClient";
 

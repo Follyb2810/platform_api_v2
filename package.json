@@ -16,7 +16,7 @@
   "postinstall": "prisma generate",
   "prisma:seed": "prisma db seed",
   "seed": "npx ts-node prisma/seed.ts",
-  "seed_db": "ts-node seed/seed.ts",
+  "seed_db": "ts-node src/seed/seed.ts",
   "seed:db": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts",
   "seed:tx": "tsx prisma/seed.ts",
   "seed:esm": "ts-node-esm prisma/seed.ts"
@@ -24,6 +24,7 @@
  "dependencies": {
   "@prisma/adapter-pg": "^7.2.0",
   "@prisma/client": "^7.2.0",
+  "bcrypt": "^6.0.0",
   "cookie-parser": "^1.4.7",
   "cors": "^2.8.5",
   "date-fns": "^4.1.0",

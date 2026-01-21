@@ -1,23 +1,36 @@
 import { Router } from "express";
 import { me } from "./controllers/authController";
 import { PrismaUserRepository } from "../infrastructure/repositories/PrismaUserRepository";
-import { CreateUserUsecase } from "../core/usecases/CreateUserUsecase";
 import { UserController } from "./controllers/userController";
-import { LoginUserUsecase } from "../core/usecases/LoginUserUsecase";
 import { LoginController } from "./controllers/loginController";
+import { createUserSchema, EmailSchema } from "./validation/userValidation";
+import {
+  ValidateMiddleware,
+  ValidateSource,
+} from "../middleware/validation.middleware";
+import { JwtTokenService } from "../infrastructure/auth/JwtTokenService";
+import { CreateUserUsecase } from "../application/usecases/user/CreateUserUsecase";
+import { LoginUserUsecase } from "../application/usecases/user/LoginUserUsecase";
 const router = Router();
 
 const userRepo = new PrismaUserRepository();
-
-const createUserUsecase = new CreateUserUsecase(userRepo);
-const controller = new UserController(createUserUsecase);
+const token = new JwtTokenService("");
+const createUserUsecase = new CreateUserUsecase(userRepo, token);
+const registerController = new UserController(createUserUsecase);
 
 const loginUsecase = new LoginUserUsecase(userRepo);
 const loginController = new LoginController(loginUsecase);
 
+router.get(
+  "/user/:email",
+  ValidateMiddleware(EmailSchema, ValidateSource.PARAMS),
+  (req, res) => registerController.getUserByEmail(req, res),
+);
 router.post("/login", (req, res) => loginController.login(req, res));
 router.get("/me", me);
-router.post("/users", (req, res) => controller.create(req, res));
+router.post("/register", ValidateMiddleware(createUserSchema), (req, res) =>
+  registerController.create(req, res),
+);
 
 export const userRoutes = router;
 

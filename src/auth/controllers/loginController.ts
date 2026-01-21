@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
-import {
-  LoginUserDTO,
-  LoginUserUsecase,
-} from "../../core/usecases/LoginUserUsecase";
 import { loginSchema } from "../validation/userValidation";
+import {
+  LoginUserUsecase,
+  LoginUserDTO,
+} from "../../application/usecases/user/LoginUserUsecase";
 
 export class LoginController {
   constructor(private loginUsecase: LoginUserUsecase) {}

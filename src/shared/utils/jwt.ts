@@ -6,6 +6,7 @@ type TPayload = {
   email?: string;
   name?: string;
   userId?: string;
+  roles?: string[];
 };
 
 export class JwtService {

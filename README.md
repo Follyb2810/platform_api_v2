@@ -18,4 +18,12 @@ npx prisma db push     # Updates the database schema to match your Prisma models
 npx prisma db push --preview-feature # Preview changes first
 
 ```
+
 # platform_api_v2
+
+```bash
+git filter-branch --force --index-filter \
+"git rm --cached --ignore-unmatch src/shared/utils/sendMail.ts" \
+--prune-empty --tag-name-filter cat -- --all
+
+```

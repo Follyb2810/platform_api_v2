@@ -1,12 +1,8 @@
-import { Response, NextFunction, Request } from "express";
+import { Response, NextFunction, Request, Handler } from "express";
 import { JwtService } from "../shared/utils/jwt";
 
-export interface AuthRequest extends Request {
-  userId?: string;
-  roles: string[];
-}
-const authMiddleware = (
-  req: AuthRequest,
+const authMiddleware: Handler = (
+  req: Request,
   res: Response,
   next: NextFunction,
 ): void => {
@@ -32,6 +28,8 @@ const authMiddleware = (
     }
 
     req.userId = decoded.userId;
+    req.roles = decoded.roles;
+
     next();
   } catch (error) {
     res.status(401).json({
