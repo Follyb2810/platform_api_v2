@@ -1,10 +1,5 @@
-import { IUserRepository } from "../../../auth/interface/IUserRepository";
-
-export interface LoginUserDTO {
-  email: string;
-  password?: string;
-  provider?: "GOOGLE" | "LOCAL";
-}
+import { IUserRepository } from "../../../core/interface/IUserRepository";
+import { LoginUserDTO } from "../../Dtos/User/LoginUserDTO";
 
 export class LoginUserUsecase {
   constructor(private userRepo: IUserRepository) {}

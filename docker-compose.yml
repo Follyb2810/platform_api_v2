@@ -10,15 +10,15 @@ services:
       - "5432:5432"
 
     environment:
-      POSTGRES_USER: api_user
-      POSTGRES_PASSWORD: api_pass
+      POSTGRES_USER: follyb_user
+      POSTGRES_PASSWORD: follyb_pass
       POSTGRES_DB: api_db
 
     volumes:
       - platform_data:/var/lib/postgresql/data
 
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U api_user"]
+      test: ["CMD-SHELL", "pg_isready -U follyb_user"]
       interval: 10s
       timeout: 5s
       retries: 5

@@ -4,11 +4,11 @@ import {
   RoleName as PrismaRoleName,
 } from "./../../../prisma/generated/prisma";
 import { User } from "../../core/entities/User";
-import { IUserRepository } from "../../auth/interface/IUserRepository";
 import { App as DomainApp, RoleName, UserType } from "../../core/enums";
 import { UserRole } from "../../core/entities/UserRole";
 import { UserAppProfile } from "../../core/entities/UserAppProfile";
 import { ComparePassword } from "../../shared/utils/bcrypt";
+import { IUserRepository } from "../../core/interface/IUserRepository";
 
 export class PrismaUserRepository implements IUserRepository {
   getUserById(userId: string): Promise<User | null> {

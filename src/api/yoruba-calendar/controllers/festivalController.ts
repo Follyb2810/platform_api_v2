@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import { CreateFestivalUsecase } from "../usecases/CreateFestivalUsecase";
 import { festivalSchema } from "../validation/festivalSchema";
+import { CreateFestivalUsecase } from "../../../application/usecases/CreateFestivalUsecase";
 
 export class FestivalController {
   constructor(private createFestivalUsecase: CreateFestivalUsecase) {}

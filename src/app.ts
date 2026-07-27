@@ -1,9 +1,9 @@
 import dotenv from "dotenv";
 dotenv.config();
 import express, { Request, Response } from "express";
-import { userRoutes } from "./auth/routes";
+import { userRoutes } from "./api/auth/routes";
 import morgan from "morgan";
-import { errorMiddleware } from "./middleware/error.middleware";
+import { errorMiddleware } from "./api/middleware/error.middleware";
 
 export function createApp() {
   const app = express();

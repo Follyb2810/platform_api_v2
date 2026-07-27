@@ -1,6 +1,6 @@
-import { IUserRepository } from "../../../auth/interface/IUserRepository";
 import { App, UserType, RoleName } from "../../../core/enums";
 import { ITokenService } from "../../../core/interface/ITokenService";
+import { IUserRepository } from "../../../core/interface/IUserRepository";
 import { hashPwd } from "../../../shared/utils/bcrypt";
 
 interface CreateUserDTO {
@@ -18,6 +18,7 @@ export class CreateUserUsecase {
   ) {}
 
   async execute(data: CreateUserDTO) {
+    console.log({ data });
     let user = await this.userRepo.getUserByEmail(data.email);
 
     if (!user) {
@@ -39,7 +40,11 @@ export class CreateUserUsecase {
     }
     await this.userRepo.assignRole(user.id, RoleName.USER, data.app);
     await this.userRepo.createUserAppProfile(user.id, data.app, data.type);
-    const token = this.tokenService.generateToken(user.id, data.app);
+    const token = this.tokenService.generateToken({
+      app: data.app,
+      userId: user.id,
+      roles: user.roles.map((r) => r.roleName),
+    });
     return { user, token };
   }
 

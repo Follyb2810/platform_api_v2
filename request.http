@@ -55,10 +55,10 @@ Content-Type: {{Json}}
 
 {
   "name": "Alice",
-  "email": {{Email}},
   "password": "hashedPassword",
   "app": "TAX_FLOW",
-  "type": "COMPANY"
+  "type": "COMPANY",
+  "email":"{{Email}}"
 }
 
 

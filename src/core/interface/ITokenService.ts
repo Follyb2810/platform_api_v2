@@ -1,6 +1,12 @@
 import { App } from "../enums";
 
+export interface TokenPayload {
+  userId: string;
+  app: App;
+  roles?: string[];
+}
+
 export interface ITokenService {
-  generateToken(userId: string, app: App): string;
-  verifyToken(token: string): { userId: string; app: App };
+  generateToken(payload: TokenPayload): string;
+  verifyToken(token: string): TokenPayload;
 }
